@@ -1,0 +1,20 @@
+{
+  "name": "vizbug",
+  "version": "0.0.0",
+  "description": "A context aware debug logger",
+  "main": "index.js",
+  "dependencies": {
+    "stackback": "0.0.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/vizbug.git"
+  },
+  "author": "Mathias Buus (@mafintosh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/vizbug/issues"
+  },
+  "homepage": "https://github.com/mafintosh/vizbug"
+}
