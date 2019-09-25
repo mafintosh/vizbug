@@ -11,15 +11,9 @@ function noop () {}
 
 function enabled () {
   const OUTPUT = process.env.VIZBUG === 'true' ? 'stdout': process.env.VIZBUG
-  const DEBUG_STATE = global.__DEBUG_STATE__ || (global.__DEBUG_STATE__ = { context: 0, id: 0, trace: 0, traces: new WeakMap() })
+  const DEBUG_STATE = global.__DEBUG_STATE__ || (global.__DEBUG_STATE__ = { context: 0, id: 0, trace: 0, traces: new WeakMap(), output: createOutput() })
   const stackback = require('stackback')
   const os = require('os')
-
-  const out = OUTPUT === 'stdout'
-    ? process.stdout
-    : OUTPUT === 'stderr'
-      ? process.stderr
-      : require('fs').createWriteStream(OUTPUT)
 
   return debug
 
@@ -54,8 +48,16 @@ function enabled () {
         date: new Date()
       }
 
-      out.write(JSON.stringify(m) + os.EOL)
+      DEBUG_STATE.output.write(JSON.stringify(m) + os.EOL)
     }
+  }
+
+  function createOutput () {
+    return OUTPUT === 'stdout'
+      ? process.stdout
+      : OUTPUT === 'stderr'
+        ? process.stderr
+        : require('fs').createWriteStream(OUTPUT)
   }
 
   function traceId (t) {
